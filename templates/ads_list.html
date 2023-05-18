@@ -1,0 +1,39 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}Список объявлений{% endblock title %}
+
+{% block content %}
+    {% if ads %}
+        {% for ad in ads %}
+            <div class="mb-5">
+                <a href="{% url 'ad_detail' ad.id %}" class="title-link d-block fs-2 fw-semibold text-decoration-none text-dark">
+                    <h2 class="m-0">{{ ad.title }}</h2>
+                </a>
+                <p class="publication-date">{{ ad.dt_created|date:"Y:m:d" }}</p>
+                <p>{{ ad.preview }}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <section class="fs-2">Объявления отсутствуют.</section>
+    {% endif %}
+
+    {% if page_obj.paginator.num_pages > 1 %}
+        <nav class="mt-2">
+            <ul class="pagination">
+                {% for page_number in page_obj.paginator.get_elided_page_range %}
+                    {% if page_number == page_obj.number %}
+                        <li class="page-item active">
+                    {% else %}
+                        <li class="page-item">
+                    {% endif %}
+                    {% if page_number != page_obj.paginator.ELLIPSIS %}
+                        <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+                    {% else %}
+                        <span class="page-link">{{ page_number }}</span>
+                    {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </nav>
+    {% endif %}
+{% endblock content %}

@@ -1,0 +1,16 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}Обьявление{% endblock title %}
+
+{% block misc %}
+    {{ form.media }}
+{% endblock misc %}
+
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Сохранить" class="btn btn-primary"/>
+    </form>
+{% endblock content %}
+
