@@ -1,0 +1,24 @@
+{% extends 'layouts/sign.html' %}
+
+{% block title %}Войти{% endblock title %}
+
+{% block content %}
+    <h2>Войти</h2>
+    {% if error %}
+        <div class="error-block">
+            Пожалуйста, введите корректные имя пользователя и пароль учётной записи. Оба поля могут быть чувствительны к регистру.
+        </div>
+    {% endif %}
+    <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <label>Имя пользователя</label>
+        <input type="text" name="username" value="{{ username }}" required>
+        <label>Пароль</label>
+        <input type="password" name="password" required>
+        <input type="submit" value="Войти">
+    </form>
+    <div class="extra-links">
+        <a href="/">На главную</a>
+        <a href="{% url 'register' %}">Регистрация</a>
+    </div>
+{% endblock content %}

@@ -20,10 +20,10 @@
                 <a href="{% url 'ad_create' %}" class="btn btn-primary">Создать объявление</a>
                 <div class="ms-3">
                     <div class="mb-1 text-white lh-1">{{ user.username }}</div>
-                    <a href="" class="d-block text-decoration-none lh-1">Выйти</a>
+                    <a href="{% url 'logout' %}?next=/" class="d-block text-decoration-none lh-1">Выйти</a>
                 </div>
             {% else %}
-                <a href="" class="ms-3 text-decoration-none">Войти</a>
+                <a href="{% url 'login' %}" class="ms-3 text-decoration-none">Войти</a>
             {% endif %}
         </div>
     </div>

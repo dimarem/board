@@ -22,7 +22,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('', include('ads.urls')),
     path('admin/', admin.site.urls),
-    path('tinymce/', include('tinymce.urls'))
+    path('tinymce/', include('tinymce.urls')),
+    path('sign/', include('sign.urls'))
 ]
 
 if settings.DEBUG:
