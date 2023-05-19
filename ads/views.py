@@ -2,8 +2,10 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.core.files.storage import FileSystemStorage
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import redirect
+from django.urls import reverse
 
-from .models import Ad, Author
+from .models import Ad, Author, Feedback
 from .forms import UploadFileForm, AdForm
 
 
@@ -60,3 +62,11 @@ def upload_file(request):
     uploaded_file_url = fs.url(filename)
 
     return HttpResponse(uploaded_file_url)
+
+
+def left_feedback(request, pk):
+    """Оставить отзыв на объявление"""
+    ad = Ad.objects.get(pk=pk)
+    Feedback.objects.create(content=request.POST['content'], ad=ad, author=request.user)
+
+    return redirect(reverse('ad_detail', args=(ad.id,)))

@@ -44,6 +44,7 @@ class Feedback(models.Model):
     content = models.CharField(max_length=500)
     accepted = models.BooleanField(default=False)
     ad = models.ForeignKey(Ad, on_delete=models.CASCADE, related_name='feedbacks')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='feedbacks')
 
     def __str__(self):
         return f'{self.content[0:100]}...'

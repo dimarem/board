@@ -13,4 +13,12 @@
             {{ ad.content }}
         {% endautoescape  %}
     </article>
+    {% if user.is_authenticated %}
+        <h2 class="mt-3 fs-5 text-secondary">Оставить отзыв</h2>
+        <form method="post" action="{% url 'left_feedback' ad.id %}">
+            {% csrf_token %}
+            <textarea name="content" class="mb-2 form-control" style="min-height: 250px;"></textarea>
+            <button class="btn btn-primary">Отправить</button>
+        </form>
+    {% endif %}
 {% endblock content %}
