@@ -18,6 +18,7 @@
         <div class="d-flex align-items-center">
             {% if user.is_authenticated %}
                 <a href="{% url 'ad_create' %}" class="btn btn-primary">Создать объявление</a>
+                <a href="{% url 'feedbacks_list' %}" class="ms-3 btn text-info border border-info">Отзывы</a>
                 <div class="ms-3">
                     <div class="mb-1 text-white lh-1">{{ user.username }}</div>
                     <a href="{% url 'logout' %}?next=/" class="d-block text-decoration-none lh-1">Выйти</a>
@@ -28,7 +29,7 @@
         </div>
     </div>
 </nav>
-<main class="m-auto px-2" style="max-width: 800px;">
+<main class="m-auto px-2">
     {% block content %}{% endblock content %}
 </main>
 </body>

@@ -1,9 +1,9 @@
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.core.files.storage import FileSystemStorage
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.shortcuts import get_object_or_404
 
 from .models import Ad, Author, Feedback
@@ -49,6 +49,35 @@ class AdUpdate(LoginRequiredMixin, UpdateView):
     model = Ad
     template_name = 'ad_edit.html'
 
+
+class FeedbacksList(LoginRequiredMixin, ListView):
+    """Список отзывов на объявления пользователя"""
+    model = Feedback
+    template_name = 'feedbacks_list.html'
+    context_object_name = 'feedbacks'
+    paginate_by = 10
+
+    def get_queryset(self):
+        return super().get_queryset().filter(ad__author__user=self.request.user).order_by('-id')
+
+
+class FeedbackDelete(LoginRequiredMixin, DeleteView):
+    """Удалить отзыв"""
+    model = Feedback
+    template_name = 'feedback_delete.html'
+    success_url = reverse_lazy('feedbacks_list')
+
+
+def accept_feedback(request, pk):
+    """Принять отзыв"""
+    if not request.user or not request.user.is_authenticated:
+        return HttpResponse('Unauthorized', status=401)
+
+    feedback = get_object_or_404(Feedback, pk=pk)
+    feedback.accepted = True
+    feedback.save()
+
+    return redirect(reverse('feedbacks_list'))
 
 def upload_file(request):
     """Обработчик загрузки файло с помощью TinyMCE"""

@@ -8,6 +8,10 @@ body {
     padding-bottom: 15px;
 }
 
+main {
+    max-width: 1000px;
+}
+
 .title-link {
     transition: .25s;
 }

@@ -1,0 +1,13 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}Удалить отзыв{% endblock title %}
+
+{% block content %}
+<h1>Удаление отзыва</h1>
+
+<form action="" method="post">
+    {% csrf_token %}
+    <p>Удаляем "{{ object }}"?</p>
+    <input type="submit" value="Удалить" class="btn btn-primary"/>
+</form>
+{% endblock content %}

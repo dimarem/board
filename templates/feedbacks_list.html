@@ -1,0 +1,59 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}Отклики на ваши статьи{% endblock title %}
+
+{% block content %}
+    {% if feedbacks %}
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Автор</th>
+                        <th>Объявление</th>
+                        <th>Отзыв</th>
+                        <th>Принят</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for feedback in feedbacks %}
+                        <tr>
+                            <td>{{ feedback.id }}</td>
+                            <td>{{ feedback.author }}</td>
+                            <td>{{ feedback.ad.preview }}</td>
+                            <td>{{ feedback }}</td>
+                            <td>{{ feedback.accepted|yesno:"Да,Нет" }}</td>
+                            <td>
+                                <a href="{% url 'feedback_delete' feedback.id %}">Удалить</a>
+                                <a href="{% url 'feedback_accept' feedback.id %}">Принять</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <section class="fs-2">Отзывы отсутствуют.</section>
+    {% endif %}
+
+    {% if page_obj.paginator.num_pages > 1 %}
+        <nav class="mt-2">
+            <ul class="pagination">
+                {% for page_number in page_obj.paginator.get_elided_page_range %}
+                    {% if page_number == page_obj.number %}
+                        <li class="page-item active">
+                    {% else %}
+                        <li class="page-item">
+                    {% endif %}
+                    {% if page_number != page_obj.paginator.ELLIPSIS %}
+                        <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+                    {% else %}
+                        <span class="page-link">{{ page_number }}</span>
+                    {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </nav>
+    {% endif %}
+{% endblock content %}
