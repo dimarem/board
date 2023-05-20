@@ -21,8 +21,6 @@ def send_feedback_notification(sender, instance, created, **kwargs):
             to=[instance.ad.author.user.email]
         )
 
-        print(instance.ad.author)
-
         msg.attach_alternative(html_content, "text/html")
         msg.send()
 
