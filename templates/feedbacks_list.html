@@ -32,7 +32,9 @@
                             <td>{{ feedback.accepted|yesno:"Да,Нет" }}</td>
                             <td>
                                 <a href="{% url 'feedback_delete' feedback.id %}">Удалить</a>
-                                <a href="{% url 'feedback_accept' feedback.id %}">Принять</a>
+                                {% if not feedback.accepted %}
+                                    <a href="{% url 'feedback_accept' feedback.id %}">Принять</a>
+                                {% endif %}
                             </td>
                         </tr>
                     {% endfor %}
