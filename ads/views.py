@@ -4,6 +4,7 @@ from django.core.files.storage import FileSystemStorage
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
 from django.urls import reverse
+from django.shortcuts import get_object_or_404
 
 from .models import Ad, Author, Feedback
 from .forms import UploadFileForm, AdForm
@@ -66,7 +67,9 @@ def upload_file(request):
 
 def left_feedback(request, pk):
     """Оставить отзыв на объявление"""
-    ad = Ad.objects.get(pk=pk)
-    Feedback.objects.create(content=request.POST['content'], ad=ad, author=request.user)
+    ad = get_object_or_404(Ad, pk=1)
+
+    if request.method == 'POST':
+        Feedback.objects.create(content=request.POST['content'], ad=ad, author=request.user)
 
     return redirect(reverse('ad_detail', args=(ad.id,)))
