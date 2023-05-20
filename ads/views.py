@@ -13,7 +13,7 @@ from .filters import FeedbackFilter
 
 class AdsList(ListView):
     """Список объявлений"""
-    model = Ad
+    queryset = Ad.objects.order_by('dt_created')
     template_name = 'ads_list.html'
     context_object_name = 'ads'
     paginate_by = 10
