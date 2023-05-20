@@ -12,5 +12,15 @@
 
 Зависимости:
 
+* [django](https://www.djangoproject.com)
 * [TinyMCE](https://django-tinymce.readthedocs.io/en/latest/)
 * [python-dotenv](https://pypi.org/project/python-dotenv/)
+* [django-filter](https://django-filter.readthedocs.io/en/stable/)
+
+Установка зависимостей:
+```commandline
+pip install django
+pip install django-tinymce
+pip install django-dotenv
+pip install django-filter
+```

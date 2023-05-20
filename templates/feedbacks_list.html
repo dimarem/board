@@ -1,8 +1,14 @@
 {% extends 'layouts/base.html' %}
 
+{% load custom_tags %}
+
 {% block title %}Отклики на ваши статьи{% endblock title %}
 
 {% block content %}
+     <form action="{% url 'feedbacks_list' %}" method="get" class="mb-4" style="max-width: 500px;">
+         {{ filterset.form.as_p }}
+         <input type="submit" value="Фильтр" class="btn btn-primary"/>
+     </form>
     {% if feedbacks %}
         <div class="table-responsive">
             <table class="table">
@@ -34,7 +40,7 @@
             </table>
         </div>
     {% else %}
-        <section class="fs-2">Отзывы отсутствуют.</section>
+        <section class="text-secondary">Отзывы отсутствуют.</section>
     {% endif %}
 
     {% if page_obj.paginator.num_pages > 1 %}
@@ -47,7 +53,7 @@
                         <li class="page-item">
                     {% endif %}
                     {% if page_number != page_obj.paginator.ELLIPSIS %}
-                        <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+                        <a class="page-link" href="?{% url_replace page=page_number %}">{{ page_number }}</a>
                     {% else %}
                         <span class="page-link">{{ page_number }}</span>
                     {% endif %}

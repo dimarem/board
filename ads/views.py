@@ -8,6 +8,7 @@ from django.shortcuts import get_object_or_404
 
 from .models import Ad, Author, Feedback
 from .forms import UploadFileForm, AdForm
+from .filters import FeedbackFilter
 
 
 class AdsList(ListView):
@@ -58,7 +59,14 @@ class FeedbacksList(LoginRequiredMixin, ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        return super().get_queryset().filter(ad__author__user=self.request.user).order_by('-id')
+        queryset = super().get_queryset().filter(ad__author__user=self.request.user).order_by('-id')
+        self.filterset = FeedbackFilter(self.request.GET, queryset)
+        return self.filterset.qs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        context['filterset'] = self.filterset
+        return context
 
 
 class FeedbackDelete(LoginRequiredMixin, DeleteView):
