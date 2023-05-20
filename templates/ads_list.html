@@ -9,7 +9,7 @@
                 <a href="{% url 'ad_detail' ad.id %}" class="title-link d-block fs-2 fw-semibold text-decoration-none text-dark">
                     <h2 class="m-0">{{ ad.title }}</h2>
                 </a>
-                <p class="publication-date">{{ ad.dt_created|date:"Y:m:d" }}</p>
+                <p class="pub-detail">{{ ad.author }}, {{ ad.dt_created|date:"Y:m:d" }}</p>
                 <p>{{ ad.preview }}</p>
             </div>
         {% endfor %}

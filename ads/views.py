@@ -67,9 +67,9 @@ def upload_file(request):
 
 def left_feedback(request, pk):
     """Оставить отзыв на объявление"""
-    ad = get_object_or_404(Ad, pk=1)
+    ad = get_object_or_404(Ad, pk=pk)
 
     if request.method == 'POST':
         Feedback.objects.create(content=request.POST['content'], ad=ad, author=request.user)
 
-    return redirect(reverse('ad_detail', args=(ad.id,)))
+    return redirect(reverse('ad_detail', args=(pk,)))

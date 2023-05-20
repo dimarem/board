@@ -8,7 +8,7 @@
             <a href="{% url 'ad_update' ad.id %}" class="text-decoration-none">Редактировать</a>
         {% endif %}
         <h1 class="m-0">{{ ad.title }}</h1>
-        <p class="author mb-4">{{ ad.dt_created|date:"Y:m:d" }}</p>
+        <p class="pub-detail mb-4">{{ ad.author }}, {{ ad.dt_created|date:"Y:m:d" }}</p>
         {% autoescape off %}
             {{ ad.content }}
         {% endautoescape  %}

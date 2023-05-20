@@ -16,7 +16,7 @@ body {
     color: #d63384 !important;
 }
 
-.author, .publication-date {
+.pub-detail {
     color: rgb(150, 150, 150);
 }
 
