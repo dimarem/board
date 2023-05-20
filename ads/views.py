@@ -79,6 +79,7 @@ def accept_feedback(request, pk):
 
     return redirect(reverse('feedbacks_list'))
 
+
 def upload_file(request):
     """Обработчик загрузки файло с помощью TinyMCE"""
     form = UploadFileForm(request.POST, request.FILES)
