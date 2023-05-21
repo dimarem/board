@@ -24,3 +24,7 @@ pip install django-tinymce
 pip install django-dotenv
 pip install django-filter
 ```
+
+**PS**
+1. В работе не была произведена адаптация под мобильные устройства.
+2. Не использовался celery и redis (последний не было возможности установить).
